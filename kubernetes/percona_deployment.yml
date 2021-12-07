@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: percona
+spec:
+  selector:
+    matchLabels:
+      app: percona
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: percona
+    spec:
+      containers:
+      - image: percona
+        name: percona
+        env:
+          # Use secret in real usage
+        - name: MYSQL_ROOT_PASSWORD
+          value: admin123
+        ports:
+        - containerPort: 3306
+          name: mysql

@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cliente
+spec:
+  selector:
+    matchLabels:
+      app: percona
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: percona
+    spec:
+      containers:
+      - image: mikel10/cliente-percona:v2
+        name: cliente
+        env:
+        - name: DB_HOST
+          value: percona
+        ports:
+        - containerPort: 3306

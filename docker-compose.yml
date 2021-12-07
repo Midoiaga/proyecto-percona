@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+        percona:
+                image: percona
+                restart: always
+                environment:
+                        MYSQL_ROOT_PASSWORD: "admin123"
+                ports:
+                        - "3306:3306"
+                volumes:
+                        - "./db:/var/lib/mysql" 
+        cliente:
+                image: mikel10/cliente-percona:v2
+                links:
+                         - percona
+                environment:
+                        DB_HOST: "percona"
